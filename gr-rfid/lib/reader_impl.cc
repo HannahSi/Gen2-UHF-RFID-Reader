@@ -92,8 +92,8 @@ namespace gr {
       std::fill_n(data_0.begin(), data_0.size()/2, 1);
       std::fill_n(data_1.begin(), 3*data_1.size()/4, 1);
       std::fill_n(cw.begin(), cw.size(), 1);
-      std::fill_n(rtcal.begin(), rtcal.size() - n_pw_s, 1); // RTcal
-      std::fill_n(trcal.begin(), trcal.size() - n_pw_s, 1); // TRcal
+      std::fill_n(rtcal.begin(), (int)(rtcal.size() - n_pw_s), 1); // RTcal
+      std::fill_n(trcal.begin(), (int) (trcal.size() - n_pw_s), 1); // TRcal
 
       // create preamble
       preamble.insert( preamble.end(), delim.begin(), delim.end() );
@@ -203,7 +203,6 @@ namespace gr {
                        gr_vector_const_void_star &input_items,
                        gr_vector_void_star &output_items)
     {
-
       const float *in = (const float *) input_items[0];
       float *out =  (float*) output_items[0];
       std::vector<float> out_message; 
@@ -250,10 +249,10 @@ namespace gr {
 
         case SEND_QUERY:
 
-          /*if (reader_state->reader_stats.n_queries_sent % 500 == 0)
+          if (reader_state->reader_stats.n_queries_sent % 2 == 0) //used to be % 500
           {
             std::cout << "Running " << std::endl;
-          }*/
+          }
 
           GR_LOG_INFO(d_debug_logger, "QUERY");
           GR_LOG_INFO(d_debug_logger, "INVENTORY ROUND : " << reader_state->reader_stats.cur_inventory_round << " SLOT NUMBER : " << reader_state->reader_stats.cur_slot_number);
